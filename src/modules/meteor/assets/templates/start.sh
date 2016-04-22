@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APPNAME=<%= appName %>
+DBNAME=<%= dbName %>
 APP_PATH=/opt/$APPNAME
 BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
@@ -24,7 +25,7 @@ docker run \
   --volume=$BUNDLE_PATH:/bundle \
   --hostname="$HOSTNAME-$APPNAME" \
   --env-file=$ENV_FILE \
-  <% if(useLocalMongo)  { %>--link=mongodb:mongodb --env=MONGO_URL=mongodb://mongodb:27017/$APPNAME <% } %>\
+  <% if(useLocalMongo)  { %>--link=mongodb:mongodb --env=MONGO_URL=mongodb://mongodb:27017/$DBNAME <% } %>\
   <% if(logConfig && logConfig.driver)  { %>--log-driver=<%= logConfig.driver %> <% } %>\
   <% for(var option in logConfig.opts) { %>--log-opt <%= option %>=<%= logConfig.opts[option] %> <% } %>\
   --name=$APPNAME \
