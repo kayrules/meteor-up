@@ -61,7 +61,10 @@ module.exports = {
       }
     }
     dockerImage: 'madushan1000/meteord-test', //optional
-    deployCheckWaitTime: 60 //default 10
+    deployCheckWaitTime: 60, //default 10
+
+    dbname: dbname,         // this fork enables this
+    graphicsMagick: true    // & this
   },
 
   mongo: { //optional
@@ -78,10 +81,10 @@ Q) I get an deploy verification error with logs like below (Similar to issue [88
 ```
 Verifying Deployment: FAILED
 
-Error: 
+Error:
 -----------------------------------STDERR-----------------------------------
  run:
-npm WARN deprecated 
+npm WARN deprecated
 npm WARN deprecated   npm -g install npm@latest
 npm WARN deprecated
 ```

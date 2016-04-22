@@ -15,7 +15,12 @@ docker rm -f $APPNAME-frontend
 
 # We don't need to fail the deployment because of a docker hub downtime
 set +e
-docker pull <%= image %>
+<% if(graphicsMagick)  { %>
+docker build -t meteorhacks/meteord:app - << EOF
+FROM <%= image %>
+RUN apt-get install graphicsmagick -y
+EOF
+<% } else { %>docker pull <%= image %><% } %>
 set -e
 
 docker run \
@@ -29,7 +34,7 @@ docker run \
   <% if(logConfig && logConfig.driver)  { %>--log-driver=<%= logConfig.driver %> <% } %>\
   <% for(var option in logConfig.opts) { %>--log-opt <%= option %>=<%= logConfig.opts[option] %> <% } %>\
   --name=$APPNAME \
-  <%= image %>
+  <% if(graphicsMagick)  { %>meteorhacks/meteord:app <% } else { %> <%= image %> <% } %>
 
 <% if(typeof sslConfig === "object")  { %>
   # We don't need to fail the deployment because of a docker hub downtime

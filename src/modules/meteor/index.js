@@ -99,12 +99,14 @@ export function push(api) {
         dest: '/opt/' + config.name + '/config/start.sh',
         vars: {
           appName: config.name,
-          dbName: config.dbname,
           useLocalMongo: api.getConfig().mongo ? 1 : 0,
           port: config.env.PORT || 80,
           sslConfig: config.ssl,
           logConfig: config.log,
-          image: config.dockerImage || 'meteorhacks/meteord:base'
+          image: config.dockerImage || 'meteorhacks/meteord:base',
+          //-- added below by kayrules
+          dbName: config.dbName,
+          graphicsMagick: config.graphicsMagick
         }
       });
 
